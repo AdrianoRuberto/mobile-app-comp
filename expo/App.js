@@ -22,7 +22,7 @@ export default class App extends Component {
       <View>
         <View style={styles.statusBar} />
         <View style={styles.container}>
-          <Text style={styles.title}>React Native Todo List</Text>
+          <Text style={styles.title}>React Native + Expo Todo List</Text>
           <View style={styles.options}>
             <Button
               onPress={this.addTodo}
