@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <h1>Cordova Todo List</h1>
     <div class="options">
         <button class="button" onclick="addTodo()">
@@ -18,12 +19,13 @@
         <div class="hide">
             Hide done
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" onclick="filteredTodos()">
                 <span class="slider round"></span>
             </label>
         </div>
     </div>
     <ul id="list" style="list-style-type:none"></ul>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 </body>
