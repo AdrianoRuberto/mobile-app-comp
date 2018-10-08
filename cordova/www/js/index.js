@@ -20,8 +20,8 @@ function addTodo() {
 
     swtch.appendChild(input);
     swtch.appendChild(span);
-    li.appendChild(document.createTextNode("Todo item#" + key));
     li.appendChild(swtch);
+    li.appendChild(document.createTextNode("Todo item#" + key));
     ul.appendChild(li);
 }
 

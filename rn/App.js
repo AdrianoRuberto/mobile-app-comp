@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Button, FlatList, StyleSheet, Switch, Text, View} from 'react-native';
+import {Button, TextInput, FlatList, StyleSheet, Switch, Text, View} from 'react-native';
 
 export default class App extends Component {
 
@@ -15,14 +15,10 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      todos: [
-        this.makeTodo(1),
-        this.makeTodo(2, true),
-        this.makeTodo(3),
-      ],
+      todos: [],
       onlyShowNotDone: false,
+      input: "",
     }
-
   }
 
   render() {
@@ -30,8 +26,14 @@ export default class App extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>React Native Todo List</Text>
         <View style={styles.options}>
+          <TextInput
+            style={{marginLeft: 10, width: 100, borderColor: "grey", borderWidth: 1}}
+            onChangeText={(text) => this.setState({input: text})}
+            value={this.state.input}
+            placeholder="Type here"
+          />
           <Button
-            onPress={this.addTodo}
+            onPress={() => this.addTodo(this.state.input)}
             title="+ Add a todo"
             color="blue"
           />
@@ -50,28 +52,26 @@ export default class App extends Component {
     );
   }
 
-  addTodo = () => {
-    this.setState((prev) => ({todos: prev.todos.concat(this.makeTodo())}));
+  addTodo = (input) => {
+    this.setState((prev) => ({todos: prev.todos.concat(this.makeTodo(input)), input: ""}));
   }
 
-  makeTodo = (number, done) => {
+  makeTodo = (input, number, done) => {
     const key = number ? number : this.state.todos.length + 1;
     return {
       done,
       key: `${key}`,
-      text: `Todo Item #${key}`
+      id: Math.floor(Math.random() * 100),
+      text: `Todo Item #${key} : ${input}`,
     }
   }
 
   renderTodo = (todo) => {
     return (
       <View style={styles.todo} key={todo.key}>
-        <View>
-          <Text>{todo.text}</Text>
-        </View>
-        <View>
-          <Switch onValueChange={() => this.toggleTodo(todo)} value={todo.done} />
-        </View>
+        <Text style={{marginRight: 10}}>{todo.text}</Text>
+        <Switch onValueChange={() => this.toggleTodo(todo)} value={todo.done} />
+        <Text style={{marginLeft: 10}}>{`id: ${todo.id}`}</Text>
       </View>
     )
   }
@@ -85,6 +85,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   title: {
+    marginTop: 30,
     textAlign: "center",
     fontSize: 24,
     margin: 10,
@@ -105,6 +106,11 @@ const styles = StyleSheet.create({
   },
   todo: {
     flex: 1,
-    flexDirection: 'row'
+    marginTop: 25,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderColor: "grey",
   }
 });

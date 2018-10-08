@@ -50,7 +50,7 @@ export default class App extends Component {
   makeTodo = (number, done) => {
     const key = number ? number : this.state.todos.length + 1;
     return {
-      done,
+      done: done,
       key: `${key}`,
       text: `Todo Item #${key}`
     }
@@ -60,10 +60,10 @@ export default class App extends Component {
     return (
       <View style={styles.todo} key={todo.key}>
         <View>
-          <Text>{todo.text}</Text>
+          <Switch onValueChange={() => this.toggleTodo(todo)} value={todo.done} />
         </View>
         <View>
-          <Switch onValueChange={() => this.toggleTodo(todo)} value={todo.done} />
+          <Text>{todo.text}</Text>
         </View>
       </View>
     )
